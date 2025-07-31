@@ -3,6 +3,7 @@ import './App.css';
 import Login from './Login';
 import Register from './Register';
 import ForgotPassword from './ForgotPassword';
+import ConfigPage from './ConfigPage';
 import React, { useState } from 'react';
 import VSCodeLayout from './VSCodeLayout';
 
@@ -12,7 +13,9 @@ function App() {
   const [sidebar, setSidebar] = useState('explorer');
 
   let content;
-  if (user) {
+  if (sidebar === 'settings' && user) {
+    content = <ConfigPage user={user} />;
+  } else if (user) {
     content = (
       <div>
         <h2>Welcome, {user}!</h2>
@@ -34,6 +37,7 @@ function App() {
       if (key === 'explorer') setPage('login');
       if (key === 'search') setPage('register');
       if (key === 'user') setPage('forgot');
+      // settings handled by sidebar only
     }}>
       {content}
     </VSCodeLayout>
